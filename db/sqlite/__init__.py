@@ -7,7 +7,7 @@ def connectToDb():
     if sqLiteDB is None:
         conn = sqlite3.connect('db.sqlite3')
         # Create a cursor object using the cursor() method
-        sqLiteDB = conn.cursor()
+        sqLiteDB = conn
     return sqLiteDB
 
 def getDB():
