@@ -8,10 +8,12 @@ def fetch_images_url():
         print(imgTup)
         parsed_images.append({"id":imgTup[0] ,"images":json.loads(imgTup[1])})
     return parsed_images
+    #
 
-def save_real_img_dim(id, dims):
-    query = "update trainData set fakeImgDim = ? where id = ?"
+def save_dims(id, dims):
+    query = "update trainData set dims = ? where id = ?"
     getDB().cursor().execute(query, (json.dumps(dims), id)).fetchall()
     getDB().commit()
+    #
     
 
