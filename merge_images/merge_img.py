@@ -106,8 +106,6 @@ def adjust_annotation_for_fake_image_with_all_padding(segmentation, bbox, merged
     adjusted_bbox_y = bbox_y - top_padding  # Adjust for top padding
     adjusted_bbox = [adjusted_bbox_x, adjusted_bbox_y, bbox_w, bbox_h]
 
-    print(adjusted_segmentation, adjusted_bbox)
-
     return adjusted_segmentation, adjusted_bbox
 
 def extract_fake_image(merged_image_path, fake_image_width, fake_image_height, output_path='extracted_image2.jpg'):
