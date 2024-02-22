@@ -3,7 +3,8 @@ from tests import (visualize_annotation_test)
 import os
 
 if __name__ == "__main__":
-    # env_var="value2" python main.py
+    #bash: env_var="merge_images" python main.py
+    #windows: set env_var="merge_images" python main.py
     process_operation = os.getenv('env_var', None)
     if process_operation is not None:
         if process_operation == "merge_images":
