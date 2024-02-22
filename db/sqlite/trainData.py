@@ -15,5 +15,11 @@ def save_dims(id, dims):
     getDB().cursor().execute(query, (json.dumps(dims), id)).fetchall()
     getDB().commit()
     #
+
+def save_adjusted_annotation(id, annotation):
+    query = "update trainData set adjustedAnnotation = ? where id = ?"
+    getDB().cursor().execute(query, (json.dumps(annotation), id)).fetchall()
+    getDB().commit()
+    #
     
 
