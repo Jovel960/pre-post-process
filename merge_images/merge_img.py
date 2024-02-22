@@ -37,11 +37,11 @@ def merge_images_with_padding(image1, image2, output_path, horizontal=True):
             image2_padded = cv2.copyMakeBorder(image2, pad_top, pad_bottom, pad_left, pad_right, cv2.BORDER_CONSTANT, value=[255, 255, 255])
             image_to_concat = (image1, image2_padded)
         else:
-            pad_top = height_diff // 2
-            pad_bottom = height_diff - pad_top
-            pad_left = width_diff // 2
-            pad_right = width_diff - pad_left
-            image1_padded = cv2.copyMakeBorder(image1, pad_top, pad_bottom, pad_left, pad_right, cv2.BORDER_CONSTANT, value=[255, 255, 255])
+            # pad_top = height_diff // 2
+            # pad_bottom = height_diff - pad_top
+            # pad_left = width_diff // 2
+            # pad_right = width_diff - pad_left
+            # image1_padded = cv2.copyMakeBorder(image1, pad_top, pad_bottom, pad_left, pad_right, cv2.BORDER_CONSTANT, value=[255, 255, 255])
             image_to_concat = (image1, image2)
 
         # Merge the images
