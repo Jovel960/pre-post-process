@@ -15,14 +15,14 @@ def merge_images():
 
 if __name__ == "__main__":
     merge_images()
-    # adjust_annotation_for_fake_image_with_all_padding(bbox=[571.6571219308036,378.85714285714283,69.71428571428567,93.71428571428572],
-    #                                                   bottom_padding=144,
-    #                                                   fake_height=530,
-    #                                                   fake_width=315,
-    #                                                   left_padding=46,
-    #                                                   merged_height=530,
-    #                                                   merged_width=630,
-    #                                                   right_padding=46,
-    #                                                   segmentation=[[766.6030327506122,333.015332197615,1244.9675983383465,321.9761499148211,1257.8466443349394,796.6609880749575,794.2009884575968,778.2623509369677]]
-    #                                                   ,top_padding=144)
+    # adjust_annotation_for_fake_image_with_all_padding(bbox=[1059.4285365513392,234.28571428571428,281.9047619047619,123.8095238095238],
+    #                                                   bottom_padding=0,
+    #                                                   fake_height=600,
+    #                                                   fake_width=800,
+    #                                                   left_padding=0,
+    #                                                   merged_height=600,
+    #                                                   merged_width=1600,
+    #                                                   right_padding=0,
+    #                                                   segmentation=[[1059.4285365513392,241.9047619047619,1070.8571079799106,358.0952380952381,1341.3332984561011,348.57142857142856,1337.5237746465773,234.28571428571428]]
+    #                                                   ,top_padding=0)
 

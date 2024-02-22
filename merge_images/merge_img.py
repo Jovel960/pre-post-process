@@ -20,7 +20,7 @@ def merge_images_with_padding(image1, image2, output_path, horizontal=True):
     # image2 = cv2.imread(image2)
     try:
         # Determine the size differences
-        image2_original_height, image2_original_width = 0, 0
+        image2_original_height, image2_original_width = image2.shape[:2]
         height_diff = abs(image1.shape[0] - image2.shape[0])
         width_diff = abs(image1.shape[1] - image2.shape[1])
 
@@ -51,11 +51,6 @@ def merge_images_with_padding(image1, image2, output_path, horizontal=True):
             combined_image = cv2.vconcat(image_to_concat)
 
         combined_height, combined_width = combined_image.shape[:2]
-        if fakeImagePadded:
-            image2_original_height, image2_original_width = image2_padded.shape[:2]
-        else:
-            image2_original_height, image2_original_width = image2.shape[:2]
-
 
         # Save the combined image
         cv2.imwrite(output_path, combined_image)
