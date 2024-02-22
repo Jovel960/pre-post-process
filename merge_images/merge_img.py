@@ -24,8 +24,12 @@ def merge_images_with_padding(image1, image2, output_path, horizontal=True):
         height_diff = abs(image1.shape[0] - image2.shape[0])
         width_diff = abs(image1.shape[1] - image2.shape[1])
 
+        pad_top, pad_right, pad_bottom, pad_left = 0, 0, 0, 0
+        fakeImagePadded = False
+
         # Identify the smaller image and calculate padding for width and height
         if image1.shape[0] > image2.shape[0] or image1.shape[1] > image2.shape[1]:
+            fakeImagePadded = True
             pad_top = height_diff // 2
             pad_bottom = height_diff - pad_top
             pad_left = width_diff // 2
@@ -46,9 +50,22 @@ def merge_images_with_padding(image1, image2, output_path, horizontal=True):
         else:
             combined_image = cv2.vconcat(image_to_concat)
 
+        combined_height, combined_width = combined_image.shape[:2]
         # Save the combined image
         cv2.imwrite(output_path, combined_image)
-        return {"height":image2_original_height, "width":image2_original_width}
+        if fakeImagePadded:
+            return { "fake_image_height":image2_original_height, 
+                "fake_image_width":image2_original_width, 
+                "combined_image_height":combined_height, 
+                "combined_image_width":combined_width,
+                "pad_top":pad_top,
+                "pad_bottom":pad_bottom,
+                "pad_left":pad_left,
+                "pad_right":pad_right } 
+        return { "fake_image_height":image2_original_height, 
+                "fake_image_width":image2_original_width, 
+                "combined_image_height":combined_height, 
+                "combined_image_width":combined_width }
     except Exception as e:
         print('error processing images, moving to next images')
 
