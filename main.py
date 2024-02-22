@@ -2,6 +2,7 @@ import db
 from merge_images import (merge_images_with_padding, download_image, extract_fake_image, adjust_annotation_for_fake_image_with_all_padding)
 import json
 
+#Pre processing
 def merge_images():
     dbRes = db.fetch_images_url()
 
@@ -15,14 +16,14 @@ def merge_images():
 
 if __name__ == "__main__":
     merge_images()
-    # adjust_annotation_for_fake_image_with_all_padding(bbox=[1059.4285365513392,234.28571428571428,281.9047619047619,123.8095238095238],
-    #                                                   bottom_padding=0,
-    #                                                   fake_height=600,
-    #                                                   fake_width=800,
-    #                                                   left_padding=0,
-    #                                                   merged_height=600,
-    #                                                   merged_width=1600,
-    #                                                   right_padding=0,
-    #                                                   segmentation=[[1059.4285365513392,241.9047619047619,1070.8571079799106,358.0952380952381,1341.3332984561011,348.57142857142856,1337.5237746465773,234.28571428571428]]
-    #                                                   ,top_padding=0)
+    # adjust_annotation_for_fake_image_with_all_padding(bbox=[1632.566614786784,348.4166666666667,178.5,178.50000000000006],
+    #                                                   bottom_padding=151,
+    #                                                   fake_height=630,
+    #                                                   fake_width=811,
+    #                                                   left_padding=189,
+    #                                                   merged_height=630,
+    #                                                   merged_width=2380,
+    #                                                   right_padding=190,
+    #                                                   segmentation=[[1632.566614786784,359.75,1632.566614786784,526.9166666666667,1811.066614786784,518.4166666666667,1808.2332814534507,348.4166666666667]]
+    #                                                   ,top_padding=151)
 

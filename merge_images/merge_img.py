@@ -71,6 +71,7 @@ def merge_images_with_padding(image1, image2, output_path, horizontal=True):
         print(f'error processing images, {e}')
         return {}
 
+#Post process function
 def adjust_annotation_for_fake_image_with_all_padding(segmentation, bbox, merged_width, merged_height, fake_width, fake_height, top_padding=0, bottom_padding=0, left_padding=0, right_padding=0):
     """
     Adjust annotation coordinates for a fake image with padding on all sides within a merged image.
