@@ -14,6 +14,8 @@ if __name__ == "__main__":
             load_json_files_save_annotation()
         elif process_operation == "visualize":
             visualize_annotations()
+        else:
+            print("unknow var env")
     else:
         print("Define variable operation on your CLI before running main script!")
 
