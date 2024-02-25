@@ -1,4 +1,4 @@
-from pre_processing import (merge_images)
+from pre_process import (merge_images)
 from tests import (visualize_annotations)
 from post_process import (load_json_files_save_annotation)
 import os
