@@ -10,4 +10,4 @@ Our annotation tool: https://sparkling-raindrop-d0ce2b.netlify.app/
 6. apply `set ENVIRONMENT=envname` options for environments `pre_process|visualize|post_process`
 7. run `python main.py`
    8.if you have few merged images (after running `env_var=pre_process python main.py') -> mark the fake part of the images with our annotation tool -> save the json files inside "json_annotation_files" dir. and if you want to
-   visualize the the fake image stand alone then run "visualize" env var.
+   visualize the fake image stand alone then run "visualize" env var.
