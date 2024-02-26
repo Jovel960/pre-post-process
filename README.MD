@@ -1,5 +1,7 @@
 ### **setup & run:**
 
+Our annotation tool: https://sparkling-raindrop-d0ce2b.netlify.app/
+
 1. make sure python is installed
 2. clone or fork this repository branch `git clone "https://github.com/Jovel960/pre-post-process.git" then change dir to the project
 3. Create a virtual environment in the user's root directory: `python3 -m venv venv`
@@ -7,3 +9,5 @@
 5. Install requirements: `pip install -r requirements.txt`\
 6. apply `set ENVIRONMENT=envname` options for environments `pre_process|visualize|post_process`
 7. run `python main.py`
+   8.if you have few merged images and you already marked the fake part of the images and saved the json files inside "json_annotation_files" dir and you want to
+   visualize the the fake image stand alone then run "visualize" env var.
