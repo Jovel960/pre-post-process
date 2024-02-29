@@ -8,20 +8,21 @@ import os
 images_folder_path = "images"
 
 def visualize_annotations():
-    image_name = input("What is the image name you want to visuallize (without image type) ?")
-    adjustedAnnotation = json.loads(db.fetch_image_annotation(image_name)[0])
+    image_id = input("What is the image name you want to visuallize ?")
+    adjustedAnnotation = json.loads(db.fetch_image_annotation(image_id.strip())[0])
     segmentation = adjustedAnnotation["annotations"]
     bbox = adjustedAnnotation["bbox"]
-    image_path = None
-    listDir = os.listdir(images_folder_path)
-    if len(listDir):
-        for imgFile in listDir:
-            if image_name in imgFile:
-                image_path = os.path.join(images_folder_path, imgFile)
-                break  # Exit the loop if a match is found
-    else:
-        print("images folder is empty")
-        return None
+    image_path = "images\999.jpeg"
+    # listDir = os.listdir(images_folder_path)
+    # if len(listDir):
+    #     for imgFile in listDir:
+    #         if image_id == imgFile.rsplit('.', 1)[0]:
+    #             image_path = os.path.join(images_folder_path, imgFile)
+    #             print(image_path)
+    #             break  # Exit the loop if a match is found
+    # else:
+    #     print("images folder is empty")
+    #     return None
 
     # Load the image
     img = Image.open(image_path)
@@ -31,7 +32,7 @@ def visualize_annotations():
     # Draw segmentation polygons
     for polygon in segmentation:
         poly_points = np.array(polygon).reshape((-1, 2))  # Reshape to Nx2 array
-        poly = patches.Polygon(poly_points, linewidth=1, edgecolor='r', facecolor='none')
+        poly = patches.Polygon(poly_points, linewidth=1, edgecolor='g', facecolor='none')
         ax.add_patch(poly)
     
     # #Draw bounding box
