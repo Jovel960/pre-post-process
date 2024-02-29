@@ -6,12 +6,15 @@ from io import BytesIO
 def download_image(url):
     try:
         """Download an image from a URL to a numpy array suitable for OpenCV processing."""
-        resp = urllib.request.urlopen(url)
+        resp = urllib.request.urlopen(url, headers={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+    })
         image = np.asarray(bytearray(resp.read()), dtype="uint8")
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
         return image
     except Exception as e:
-        print('error processing images, moving to next images')
+        print(url)
+        print(f'error processing images, moving to next images, {e}')
 
 
 def merge_images_with_padding(image1, image2, output_path, horizontal=True):
