@@ -1,1 +1,1 @@
-from .merge_img import (merge_images_with_padding, download_image, extract_fake_image, adjust_annotation_for_fake_image_with_all_padding)
+from .merge_img import (merge_images_with_padding, download_image, extract_fake_image, adjust_annotation_for_images)
