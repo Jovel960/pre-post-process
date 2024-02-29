@@ -6,14 +6,16 @@ from io import BytesIO
 def download_image(url):
     try:
         """Download an image from a URL to a numpy array suitable for OpenCV processing."""
-        resp = urllib.request.urlopen(url, headers={
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-    })
+        req = urllib.request.Request(
+            url, 
+            headers={
+                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+                 })
+        resp = urllib.request.urlopen(req)
         image = np.asarray(bytearray(resp.read()), dtype="uint8")
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
         return image
     except Exception as e:
-        print(url)
         print(f'error processing images, moving to next images, {e}')
 
 
@@ -99,7 +101,7 @@ def adjust_annotation_for_images(segmentation, bbox, merged_width, merged_height
     # Adjust x_offset based on whether the original image is padded
     if original_image_padded:
         # When the original image is padded, the starting point of the fake image is just after the original image's width
-        x_offset = merged_width - original_width - left_padding - top_padding 
+        x_offset = merged_width - fake_width 
     else:
         # Calculate the offset from the right edge when the fake image or neither image is specifically padded
         x_offset = merged_width - fake_width - right_padding
