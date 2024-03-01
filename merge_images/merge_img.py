@@ -16,7 +16,7 @@ def download_image(url):
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
         return image
     except Exception as e:
-        print(f'error processing images, moving to next images, {e}')
+        print(f'error processing images, moving to next images, {url}')
 
 
 def merge_images_with_padding(image1, image2, output_path, horizontal=True):
@@ -78,7 +78,7 @@ def merge_images_with_padding(image1, image2, output_path, horizontal=True):
         #         "combined_image_height":combined_height, 
         #         "combined_image_width":combined_width }
     except Exception as e:
-        print(f'error processing images, {e}')
+        print(f'error processing images, {image1.shape, image2.shape}')
         return {}
 
 #Post process function
