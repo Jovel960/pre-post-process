@@ -19,67 +19,63 @@ def download_image(url):
         print(f'error processing images, moving to next images, {url}')
 
 
+import cv2
+
 def merge_images_with_padding(image1, image2, output_path, horizontal=True):
-    # Load the two images
-    # image1 = cv2.imread(image1)
-    # image2 = cv2.imread(image2)
     try:
-        # Determine the size differences
-        image1_original_height, image1_original_width = image1.shape[:2]
-        image2_original_height, image2_original_width = image2.shape[:2]
+        # Calculate padding differences
         height_diff = abs(image1.shape[0] - image2.shape[0])
         width_diff = abs(image1.shape[1] - image2.shape[1])
 
-        pad_top, pad_right, pad_bottom, pad_left = 0, 0, 0, 0
-        fakeImagePadded = False
-        
-        # Identify the smaller image and calculate padding for width and height
-        if image1.shape[0] > image2.shape[0] or image1.shape[1] > image2.shape[1]:
-            fakeImagePadded = True
+        # Initialize padding variables
+        pad_top, pad_bottom, pad_left, pad_right = 0, 0, 0, 0
+
+        # Determine which image is smaller for both dimensions
+        if image1.shape[0] < image2.shape[0]:
             pad_top = height_diff // 2
             pad_bottom = height_diff - pad_top
-            pad_left = width_diff // 2
-            pad_right = width_diff - pad_left
-            image2_padded = cv2.copyMakeBorder(image2, pad_top, pad_bottom, pad_left, pad_right, cv2.BORDER_CONSTANT, value=[255, 255, 255])
-            image_to_concat = (image1, image2_padded)
+            image1 = cv2.copyMakeBorder(image1, pad_top, pad_bottom, 0, 0, cv2.BORDER_CONSTANT, value=[255, 255, 255])
         else:
             pad_top = height_diff // 2
             pad_bottom = height_diff - pad_top
+            image2 = cv2.copyMakeBorder(image2, pad_top, pad_bottom, 0, 0, cv2.BORDER_CONSTANT, value=[255, 255, 255])
+
+        if image1.shape[1] < image2.shape[1]:
             pad_left = width_diff // 2
             pad_right = width_diff - pad_left
-            image1_padded = cv2.copyMakeBorder(image1, pad_top, pad_bottom, pad_left, pad_right, cv2.BORDER_CONSTANT, value=[255, 255, 255])
-            image_to_concat = ( image1_padded, image2)
+            image1 = cv2.copyMakeBorder(image1, 0, 0, pad_left, pad_right, cv2.BORDER_CONSTANT, value=[255, 255, 255])
+        else:
+            pad_left = width_diff // 2
+            pad_right = width_diff - pad_left
+            image2 = cv2.copyMakeBorder(image2, 0, 0, pad_left, pad_right, cv2.BORDER_CONSTANT, value=[255, 255, 255])
 
-        # Merge the images
+        # Concatenate images based on the specified orientation
         if horizontal:
-            combined_image = cv2.hconcat(image_to_concat)
+            combined_image = cv2.hconcat([image1, image2])
         else:
-            combined_image = cv2.vconcat(image_to_concat)
-
-        combined_height, combined_width = combined_image.shape[:2]
+            combined_image = cv2.vconcat([image1, image2])
 
         # Save the combined image
         cv2.imwrite(output_path, combined_image)
-        # if fakeImagePadded:
-        return { 
-                "is_real_image_padded" : not fakeImagePadded,
-                "real_image_height" : image1_original_height,
-                "real_image_width" : image1_original_width,
-                "fake_image_height":image2_original_height, 
-                "fake_image_width":image2_original_width, 
-                "combined_image_height":combined_height, 
-                "combined_image_width":combined_width,
-                "pad_top":pad_top,
-                "pad_bottom":pad_bottom,
-                "pad_left":pad_left,
-                "pad_right":pad_right } 
-        # return { "fake_image_height":image2_original_height, 
-        #         "fake_image_width":image2_original_width, 
-        #         "combined_image_height":combined_height, 
-        #         "combined_image_width":combined_width }
+
+        return {
+            "is_real_image_padded": True,  # Since we are padding one or both images, this is always true
+            "real_image_height": image1.shape[0],
+            "real_image_width": image1.shape[1],
+            "fake_image_height": image2.shape[0],
+            "fake_image_width": image2.shape[1],
+            "combined_image_height": combined_image.shape[0],
+            "combined_image_width": combined_image.shape[1],
+            "pad_top": pad_top,
+            "pad_bottom": pad_bottom,
+            "pad_left": pad_left,
+            "pad_right": pad_right
+        }
     except Exception as e:
-        print(f'error processing images, {image1.shape, image2.shape}')
+        print(f'Error processing images: {str(e)}')
         return {}
+
+# Note: You should replace the placeholders `image1`, `image2`, and `output_path` with actual image data and a valid output path.
 
 #Post process function
 def adjust_annotation_for_images(segmentation, bbox, merged_width, merged_height, original_width, fake_width, fake_height, top_padding=0, bottom_padding=0, left_padding=0, right_padding=0, original_image_padded=False):
@@ -112,7 +108,7 @@ def adjust_annotation_for_images(segmentation, bbox, merged_width, merged_height
         adjusted_polygon = []
         for i in range(0, len(polygon), 2):
             # Adjust for horizontal offset, considering only right padding if the original image is not padded
-            x = polygon[i] - x_offset
+            x = polygon[i] - x_offset - right_padding
             # Adjust for top padding
             if original_image_padded:
                 y = polygon[i+1] - top_padding + bottom_padding
