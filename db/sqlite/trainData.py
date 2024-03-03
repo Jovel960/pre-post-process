@@ -11,7 +11,7 @@ def fetch_images_url():
 
 def save_dims(id, dims):
     query = "update trainData set dims = ? where id = ?"
-    getDB().cursor().execute(query, (json.dumps(dims), id)).fetchall()
+    getDB().cursor().execute(query, (json.dumps(dims), id))
     getDB().commit()
     #
 
@@ -21,9 +21,9 @@ def fetch_dims(id):
     return dims
     #
 
-def save_adjusted_annotation(id, annotation):
+def save_adjusted_annotation(id, annotations):
     query = "update trainData set adjustedAnnotation = ? where id = ?"
-    getDB().cursor().execute(query, (json.dumps(annotation), id)).fetchall()
+    getDB().cursor().execute(query, (json.dumps(annotations), id))
     getDB().commit()
     #
 
