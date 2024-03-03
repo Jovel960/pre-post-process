@@ -21,14 +21,14 @@ def fetch_dims(id):
     return dims
     #
 
-def save_adjusted_annotation(id, annotations):
-    query = "update trainData set adjustedAnnotation = ? where id = ?"
+def save_adjusted_annotations(id, annotations):
+    query = "update trainData set adjustedAnnotations = ? where id = ?"
     getDB().cursor().execute(query, (json.dumps(annotations), id))
     getDB().commit()
     #
 
-def fetch_image_annotation(image_id):
-    query = "select adjustedAnnotation from trainData where id = ?"
+def fetch_image_annotations(image_id):
+    query = "select adjustedAnnotations from trainData where id = ?"
     adjustedAnnotation = getDB().cursor().execute(query, (image_id,)).fetchone()
     return adjustedAnnotation
     #
@@ -37,7 +37,7 @@ def clearDimsAndAnnotations():
     #change to union 
     query = "update trainData set dims = NULL where dims is not NULL"
     getDB().cursor().execute(query).fetchall()
-    query = "update trainData set adjustedAnnotation = NULL where adjustedAnnotation is not NULL"
+    query = "update trainData set adjustedAnnotations = NULL where adjustedAnnotation is not NULL"
     getDB().cursor().execute(query).fetchall()
     getDB().commit()
     #

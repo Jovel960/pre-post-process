@@ -9,7 +9,7 @@ images_folder_path = "images"
 
 def visualize_annotations():
     image_id = input("What is the merged image image id you want to visuallize ?")
-    adjustedAnnotations = json.loads(db.fetch_image_annotation(image_id.strip())[0])["adjusted_annotations"]
+    adjustedAnnotations = json.loads(db.fetch_image_annotations(image_id.strip())[0])["adjusted_annotations"]
     image_path = input("What is the fake image path you want to visuallize ?")
     # listDir = os.listdir(images_folder_path)
     # if len(listDir):

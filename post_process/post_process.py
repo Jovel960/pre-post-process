@@ -32,7 +32,6 @@ def load_json_files_save_annotation():
                                                                         segmentation=annotation["segmentation"], 
                                                                         bbox=annotation["bbox"]
                                                             ))
-                    print(adjusted_annotations)
-                    db.save_adjusted_annotation(id = id,annotations={"adjusted_annotations":adjusted_annotations})
+                    db.save_adjusted_annotations(id = id,annotations={"adjusted_annotations":adjusted_annotations})
     else:
         print("json files dir is empty!")
