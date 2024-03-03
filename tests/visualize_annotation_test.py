@@ -8,12 +8,12 @@ import os
 images_folder_path = "images"
 
 def visualize_annotations():
-    image_id = input("What is the image name you want to visuallize ?")
+    image_id = input("What is the merged image image id you want to visuallize ?")
     print(image_id)
     adjustedAnnotation = json.loads(db.fetch_image_annotation(image_id.strip())[0])
     segmentation = adjustedAnnotation["annotations"]
     bbox = adjustedAnnotation["bbox"]
-    image_path = input("What is the image path you want to visuallize ?")
+    image_path = input("What is the fake image path you want to visuallize ?")
     # listDir = os.listdir(images_folder_path)
     # if len(listDir):
     #     for imgFile in listDir:
