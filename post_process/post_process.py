@@ -19,16 +19,12 @@ def load_json_files_save_annotation():
                     dims = json.loads(db.fetch_dims(id.strip())[0])
                     adjusted_annotations = []
                     for annotation in data["annotations"]:
-                        adjusted_annotations.append(adjust_annotation_for_images(original_image_padded=dims["is_real_image_padded"],
+                        adjusted_annotations.append(adjust_annotation_for_images(padding_info=dims["padding_info"],
                                                                         original_width=dims["real_image_width"],
-                                                                        bottom_padding=dims["pad_bottom"],
                                                                         fake_height=dims["fake_image_height"],
                                                                         fake_width=dims["fake_image_width"],
-                                                                        left_padding=dims["pad_left"],
                                                                         merged_height=dims["combined_image_height"],
                                                                         merged_width=dims["combined_image_width"],
-                                                                        right_padding=dims["pad_right"],
-                                                                        top_padding=dims["pad_top"],
                                                                         segmentation=annotation["segmentation"], 
                                                                         bbox=annotation["bbox"]
                                                             ))
